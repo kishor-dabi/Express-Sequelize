@@ -1,10 +1,10 @@
 const Account = require('../models').Account;
 
-module.exports = {
 
-    async getAll(req,res) {
+
+    exports.getAll = (req, res) => {
         try {
-            const account = await Account.find({
+            const account = Account.findAll({
                 
             });
 
@@ -22,34 +22,40 @@ module.exports = {
             res.status(500).send(e);
         }
 
-    },
+    }
 
-    async create(req,res) {
+    exports.create = (req, res) => {
 
         try {
-            const account = await Account.create({
+            const account =  Account.create({
                 name : req.body.name,
-            });
-            res.status(201).send(account)
+            }).then(data=>{
+                                // console.log(data)
+                                res.status(201).send(data);
+                            });
+            // res.status(201).send(account)
         }
         catch(e){
             console.log(e);
             res.status(400).send(e);
         }
-    },
+    }
 
-    async update(req,res) {
+    exports.update = (req, res) =>  {
         try{
-            const data = await Post.find({
+            const data =  Post.find({
                 account_id : req.params.id
             });
 
             if(data){
-                const updatedData = await data.update({
+                const updatedData =  data.update({
                     name : req.body.name
-                })
+                }).then(dataobj=>{
+                                // console.log(data)
+                                res.status(200).send(dataobj);
+                            });
 
-                res.status(201).send(updatedData);
+                // res.status(201).send(updatedData);
             }
             else{
                 res.status(404).send("Account Not Found");
@@ -62,4 +68,3 @@ module.exports = {
         }
 
     }
-}

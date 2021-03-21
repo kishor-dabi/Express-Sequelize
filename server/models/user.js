@@ -6,8 +6,31 @@ module.exports = (sequelize,DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        email : DataTypes.STRING
-    });
+        email : {
+            type: DataTypes.STRING,
+            unique: true
+        },
+        password:{
+            type:DataTypes.STRING,      
+        },
+        first_name:{
+            type:DataTypes.STRING,   
+        },
+        last_name:{
+            type:DataTypes.STRING,   
+        },
+        gender:{
+            type:DataTypes.INTEGER,// 1 => male 2 => female   
+        }
+    },
+    {
+        sequelize,
+        paranoid: true,
+
+        // If you want to give a custom name to the deletedAt column
+        deletedAt: 'deletedAt'
+    }
+    );
 
     User.associate = function(models) {
 

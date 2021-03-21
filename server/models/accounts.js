@@ -8,7 +8,15 @@ module.exports = (sequelize,DataTypes) => {
 			autoIncrement: true
     	},
         name : DataTypes.STRING
-    });
+    },
+     {
+        sequelize,
+        paranoid: true,
+
+        // If you want to give a custom name to the deletedAt column
+        deletedAt: 'deletedAt'
+    }
+    );
 
 
 

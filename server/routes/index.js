@@ -1,7 +1,11 @@
-const userController = require('../controller').user;
+const userController = require('../controller/user.js');
 const postController = require('../controller').post;
-const accountController = require('../controller').account;
+const accountController = require('../controller/account.js');
+const loginController = require('../controller/login.js');
 module.exports = (app) => {
+
+    var router = require("express").Router();
+  
 
     app.get('/api',(req,res) => {
         res.status(200).send({
@@ -9,11 +13,12 @@ module.exports = (app) => {
         })
     })
 
-    app.get('/api/users',userController.getAllUsers);
+    router.get('/api/users',userController.getAllUsers);
 
-    app.post('/api/user/create',userController.create);
+    router.post('/api/user/create',userController.create);
 
-    app.put('/api/user/:userId',userController.update);
+    router.put('/api/user/:userId',userController.update);
+    router.get('/api/user/:id',userController.getUserById);
 
     app.get('/api/:userId/posts',postController.getAllPostsOfUser);
 
@@ -21,9 +26,14 @@ module.exports = (app) => {
 
     app.put('/api/:postId',postController.update);
 
-    app.post('/api/account/create',accountController.create);
+    router.post('/api/account/create',accountController.create);
 
-    app.put('/api/account/:id',accountController.update);
-    app.get('/api/accounts',accountController.getAll);
+    router.put('/api/account/:id',accountController.update);
+    router.get('/api/accounts',accountController.getAll);
+    router.post('/api/login',loginController.login);
+
+    // router.post('/api/signup', )
+
+ app.use("/", router);
 
 }
