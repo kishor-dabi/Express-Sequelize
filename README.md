@@ -36,3 +36,10 @@ $ node_modules/.bin/sequelize db:migrate
 ```
 $ node index.js
 ```
+
+
+
+
+sequelize-cli db:seed --seed 'seeder name' = > for run seeder
+sequelize-cli db:seed:all  = > for all seeder
+sequelize-cli seed:generate --name <seeder name > - > create seeder
